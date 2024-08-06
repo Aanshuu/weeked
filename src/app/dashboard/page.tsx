@@ -2,12 +2,19 @@
 import React, { useState } from 'react';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import DateOfBirthModal from '@/components/DateOfBirthModal';
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
+import { redirect} from 'next/navigation';
+import { User } from 'lucide-react';
 
 const weeksInYear = 52;
 
 const Dashboard: React.FC = () => {
   const [dob, setDob] = useState<string | null>(null);
   const [showModal, setShowModal] = useState<boolean>(!dob);
+
+  // const {getUser} = getKindeServerSession()
+  // const user = getUser()
+  // if(!user || !user.id) redirect('auth-callback?origin=dashboard')
 
   const handleDateOfBirthSubmit = (dateOfBirth: Date) => {
     setDob(dateOfBirth.toISOString().split('T')[0]); // Store the date in YYYY-MM-DD format
