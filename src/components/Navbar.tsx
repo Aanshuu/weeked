@@ -26,7 +26,7 @@ const Navbar=()=>{
                         Pricing
                     </TransitionLink>
                     <TransitionLink 
-                        href="/pricing" 
+                        href="/signIn" 
                         className={buttonVariants({
                             variant: 'ghost',
                             size: 'sm',
