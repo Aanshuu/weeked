@@ -11,6 +11,7 @@
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.0",
     "@tailwindcss/typography": "^0.5.13",
+    "@types/uuid": "^10.0.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "firebase": "^10.12.5",
@@ -19,8 +20,10 @@
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.2.1",
+    "slugify": "^1.6.6",
     "tailwind-merge": "^2.4.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",

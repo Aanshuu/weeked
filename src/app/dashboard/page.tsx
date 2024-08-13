@@ -1,17 +1,23 @@
-'use client';
-import React, { useState } from 'react';
-import MaxWidthWrapper from '@/components/MaxWidthWrapper';
-import DateOfBirthModal from '@/components/DateOfBirthModal';
+"use client";
+import React, { useState } from "react";
+import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
+import DateOfBirthModal from "@/components/modals/DateOfBirthModal";
+import ProtectedRoute from "@/components/common/ProtectedRoute";
+import { signOut } from "firebase/auth";
+import { auth } from "../../lib/firebase/config";
+import { useRouter } from "next/navigation";
+// import { generateSlug } from "@/lib/utils";
 
 const weeksInYear = 52;
 
 const Dashboard: React.FC = () => {
   const [dob, setDob] = useState<string | null>(null);
   const [showModal, setShowModal] = useState<boolean>(!dob);
-  const [number,  setNumber] = useState<number>(0);
+  const [number, setNumber] = useState<number>(0);
+  const router = useRouter();
 
   const handleDateOfBirthSubmit = (dateOfBirth: Date) => {
-    setDob(dateOfBirth.toISOString().split('T')[0]); // Store the date in YYYY-MM-DD format
+    setDob(dateOfBirth.toISOString().split("T")[0]); // Store the date in YYYY-MM-DD format
     setShowModal(false);
   };
 
@@ -20,8 +26,10 @@ const Dashboard: React.FC = () => {
 
     const today = new Date();
     const dobDate = new Date(dob);
-    const dobWeek = Math.floor((today.getTime() - dobDate.getTime()) / (1000 * 60 * 60 * 24 * 7));
-    return (dobWeek);
+    const dobWeek = Math.floor(
+      (today.getTime() - dobDate.getTime()) / (1000 * 60 * 60 * 24 * 7)
+    );
+    return dobWeek;
   };
 
   const filledBlocks = calculateFilledBlocks(dob);
@@ -32,13 +40,15 @@ const Dashboard: React.FC = () => {
     return Array.from({ length: weeksInLife }, (_, index) => {
       // Calculate the week number within the year (1 to 52)
       const weekNumber = (index % weeksInYear) + 1;
+      // const slug = generateSlug(index);
 
       return (
         <div
           key={index}
           className={`w-4 h-4 border border-gray-300 transition-transform duration-100 ease-in-out flex items-center justify-center ${
-            index < filledBlocks ? 'bg-black' : 'bg-white'
+            index < filledBlocks ? "bg-black" : "bg-white"
           } custom-hover-scale relative`}
+          // onClick={() => router.push(`/notes/${slug}`)}
         >
           <span className="week-number opacity-0 transition-opacity duration-200 ease-in-out">
             {weekNumber}
@@ -48,27 +58,41 @@ const Dashboard: React.FC = () => {
     });
   };
 
+  const logoutHandler = async () => {
+    await signOut(auth);
+    if (typeof window !== "undefined") {
+      localStorage.clear();
+    }
+    router.push("/");
+  };
+
   return (
-    <>
-      {showModal && (
-        <DateOfBirthModal
-          toggleModal={() => setShowModal(false)}
-          onSubmit={handleDateOfBirthSubmit}
-        />
-      )}
-      <MaxWidthWrapper className="py-8">
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(52, minmax(0, 1fr))',
-            gap: '0.5rem',
-            
-          }}
-        >
-          {renderBlocks()}
+    <ProtectedRoute>
+      <>
+        {showModal && (
+          <DateOfBirthModal
+            toggleModal={() => setShowModal(false)}
+            onSubmit={handleDateOfBirthSubmit}
+          />
+        )}
+        <div className="relative">
+          <div className="absolute top-0 left-0 p-2">
+            <button onClick={logoutHandler}>Log Out</button>
+          </div>
         </div>
-      </MaxWidthWrapper>
-    </>
+        <MaxWidthWrapper className="py-8">
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(52, minmax(0, 1fr))",
+              gap: "0.5rem",
+            }}
+          >
+            {renderBlocks()}
+          </div>
+        </MaxWidthWrapper>
+      </>
+    </ProtectedRoute>
   );
 };
 

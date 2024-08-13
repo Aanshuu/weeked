@@ -1,6 +1,6 @@
 "use client";
 
-import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
 import Link from "next/link";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState, useEffect, ChangeEvent, FormEvent } from "react";
@@ -12,7 +12,7 @@ import {
   GoogleAuthProvider,
   UserCredential,
 } from "firebase/auth";
-import { auth } from "@/app/firebase/config";
+import { auth } from "@/lib/firebase/config";
 import { FcGoogle } from "react-icons/fc";
 
 interface LoginDetails {
@@ -110,6 +110,7 @@ export default function SignIn() {
           );
         }
         setLoginSuccess(true);
+        router.push("dashboard");
       })
       .catch((error) => console.error(error));
   };
@@ -229,7 +230,9 @@ export default function SignIn() {
           </form>
           <div className="flex items-center justify-center mt-6 w-full">
             <div className="w-full h-px bg-gray-300"></div>
-            <span className="text-sm text-gray-500 mx-3 text-nowrap">Or sign in with</span>
+            <span className="text-sm text-gray-500 mx-3 text-nowrap">
+              Or sign in with
+            </span>
             <div className="w-full h-px bg-gray-300"></div>
           </div>
           <div className="flex justify-center mt-4">
@@ -244,7 +247,7 @@ export default function SignIn() {
               Don&apos;t have an account?
             </span>
             <Link
-              href="/registerPage"
+              href="/signUp"
               className="ml-1 text-sm font-medium text-blue-600 hover:text-blue-500"
             >
               Register

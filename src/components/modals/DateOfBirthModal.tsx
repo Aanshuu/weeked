@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, FormEvent } from 'react';
 import Overlay from './Overlay';
-import { buttonVariants } from './ui/button';
+import { buttonVariants } from '../ui/button';
 
 interface DateOfBirthModalProps {
   toggleModal: () => void;
