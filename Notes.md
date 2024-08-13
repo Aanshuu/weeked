@@ -18,3 +18,6 @@
 - zod 3.23.8
 - removed
 
+- slug
+- cd src 
+- tree /f .
