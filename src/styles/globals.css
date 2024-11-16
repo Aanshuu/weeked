@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body{
+  transition-property: opacity, background-color, transform;
+  filter: blur(0);
+  transition-timing-function: ease-in-out;
+  transition-duration: 500ms;
+  
+}
+
+.page-transition{
+  opacity: 0;
+  background: black;
+  transform: translateY(40px);
+  filter: blur(12px);
+}
+
+.custom-hover-scale {
+  position: relative; /* Ensure positioning for z-index */
+  z-index: 0; /* Default z-index */
+  transition: transform 0.3s ease-in-out, z-index 0s ease-in-out 0.3s; /* Transition with delay for z-index */
+}
+
+.custom-hover-scale:hover {
+  transform: scale(3); /* Scales the block to 300% */
+  z-index: 10; /* Bring block to the front */
+  transition: transform 0.3s ease-in-out, z-index 0s ease-in-out; /* Reset delay on hover */
+}
+
+.week-number {
+  font-size: 0.75rem; /* Adjust text size as needed */
+  color: white; /* Text color */
+  position: absolute; /* Absolute positioning to keep the number centered */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Centering transform */
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.2s ease-in-out; /* Smooth transition */
+}
+
+.custom-hover-scale:hover .week-number {
+  opacity: 1; /* Show on hover */
+}
