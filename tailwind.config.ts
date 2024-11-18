@@ -14,14 +14,14 @@ const config: Config = {
       },
       colors: {
         primary: {
-          DEFAULT: "#FECFC5",
+          DEFAULT: "#000000",
           dark: "#D9928A", // Primary color for dark theme
         },
         secondary: {
-          DEFAULT: "#A5C9CA",
+          DEFAULT: "#ffffff",
           dark: "#6B9B9C", // Secondary color for dark theme
         },
-        tertiary: "#4A5568",
+        tertiary: "#FECFC5",
 
         background: {
           light: "#f2f2f2",
