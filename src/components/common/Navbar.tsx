@@ -58,7 +58,7 @@
 // src/components/common/Navbar.tsx
 "use client"
 
-import Link from "next/link"
+// import Link from "next/link"
 import { useSession, signOut } from "next-auth/react"
 import MaxWidthWrapper from "./MaxWidthWrapper"
 import { buttonVariants } from "../ui/button"

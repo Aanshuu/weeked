@@ -14,7 +14,7 @@ declare module "next-auth" {
   }
 }
 
-export const authOptions: AuthOptions = {
+const authOptions: AuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -31,15 +31,10 @@ export const authOptions: AuthOptions = {
         session.user.id = token.sub as string
       }
       return session
-    },
-    async redirect({ url, baseUrl }) {
-      if (url.startsWith("/")) return `${baseUrl}${url}`
-      else if (new URL(url).origin === baseUrl) return url
-      return baseUrl
     }
-  },
-  secret: process.env.NEXTAUTH_SECRET,
+  }
 }
 
+// Export auth handler route handlers
 const handler = NextAuth(authOptions)
 export { handler as GET, handler as POST }

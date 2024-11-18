@@ -216,7 +216,7 @@
 
 import { signIn } from "next-auth/react";
 import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
-import { FcGoogle } from "react-icons/fc";
+// import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
 
 export default function SignUp() {
