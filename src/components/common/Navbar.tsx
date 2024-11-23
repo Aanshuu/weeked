@@ -54,27 +54,44 @@
 // };
 // export default Navbar;
 
-
 // src/components/common/Navbar.tsx
-"use client"
+"use client";
 
 // import Link from "next/link"
-import { useSession, signOut } from "next-auth/react"
-import MaxWidthWrapper from "./MaxWidthWrapper"
-import { buttonVariants } from "../ui/button"
-import { ArrowRight } from "lucide-react"
-import { TransitionLink } from "@/lib/TransitionLink"
+import { useSession, signOut } from "next-auth/react";
+import MaxWidthWrapper from "./MaxWidthWrapper";
+import { buttonVariants } from "../ui/button";
+import { ArrowRight } from "lucide-react";
+import { TransitionLink } from "@/lib/TransitionLink";
+import { IconMenu2 } from "@tabler/icons-react";
+import { SidebarProvider } from "../ui/sidebar";
+
+import { useSidebar } from "../ui/sidebar";
 
 const Navbar = () => {
-  const { data: session } = useSession()
+  const { data: session } = useSession();
+  const {open, setOpen} = useSidebar();
+
+  const handleSidebarToggle = () => setOpen(!open);
 
   return (
-    <nav className="sticky h-14 inset-x-0 top-0 z-30 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all">
+    <nav className="sticky h-14 inset-x-0 top-0 z-50 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all">
       <MaxWidthWrapper>
         <div className="flex h-14 items-center justify-between border-b border-zinc-200">
-          <TransitionLink href="/" className="flex z-40 font-semibold">
-            <span>Weeked.</span>
-          </TransitionLink>
+          <div className="flex items-center gap-4">
+            <button
+              className="md:hidden text-neutral-800 dark:text-neutral-200 p-2"
+              onClick={handleSidebarToggle}
+              aria-label="Toggle Menu"
+            >
+              <IconMenu2 className="h-5 w-5" />
+            </button>
+            
+            <TransitionLink href="/" className="flex z-40 items-center gap-2 font-semibold">
+              <span className="grid h-6 w-6 place-items-center rounded-md bg-primary text-secondary">W</span>
+              Weeked.
+            </TransitionLink>
+          </div>
 
           <div className="hidden items-center space-x-4 sm:flex">
             {session ? (
@@ -123,7 +140,7 @@ const Navbar = () => {
         </div>
       </MaxWidthWrapper>
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
