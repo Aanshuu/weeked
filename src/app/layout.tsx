@@ -4,6 +4,7 @@ import "../styles/globals.css";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/common/Navbar";
 import Providers from "./providers";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,8 +24,10 @@ export default function RootLayout({
         className={cn("min-h-screen font-sans antialiased", inter.className)}
       >
         <Providers>
-          <Navbar />
-          {children}
+          <SidebarProvider>
+            <Navbar />
+            {children}
+          </SidebarProvider>
         </Providers>
       </body>
     </html>
